@@ -48,6 +48,13 @@ To start using the bundle, register it in your Kernel:
         // ...
     }
 
+And run the console command to install its assets:
+
+::
+
+     php app/console assets:install
+
+
 Step 3) Configure the bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -57,12 +64,13 @@ provide the same information in your PHP code.
 ::
 
     # app/config/config.yml
+    # PaggyBoleto Configuration:
     paggy_boleto:
         cedants:
             mybusiness:
                 name: My Enterprise Inc.
                 cnpj: 01.234.567/0001-89
-                bank: cef
+                bank: CEF
                 branch: 1234
                 account: 345678
         paths:
@@ -79,7 +87,7 @@ provide the same information in your PHP code.
 Create your first payslip!
 --------------------------
 
-To create a payslip, get the ``paggy.boleto_view`` service and call its
+To create a payslip, get the ``paggy_boleto.view`` service and call its
 ``render`` function, passing the payslip data as an array argument.
 
 An example would look like this:

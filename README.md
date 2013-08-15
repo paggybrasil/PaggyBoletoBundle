@@ -43,6 +43,10 @@ public function registerBundles()
 }
 ```
 
+And run the console command to install its assets:
+
+     php app/console assets:install
+
 ### Step 3) Configure the bundle
 
 This step is not required, but if you skip this step,
@@ -50,12 +54,13 @@ you may need to provide the same information in your PHP code.
 
 ```yaml
 # app/config/config.yml
+# PaggyBoleto Configuration:
 paggy_boleto:
     cedants:
         mybusiness:
             name: My Enterprise Inc.
             cnpj: 01.234.567/0001-89
-            bank: cef
+            bank: CEF
             branch: 1234
             account: 345678
     paths:
@@ -73,7 +78,7 @@ paggy_boleto:
 
 ## Create your first payslip!
 
-To create a payslip, get the `paggy.boleto_view` service and call its
+To create a payslip, get the `paggy_boleto.view` service and call its
 `render` function, passing the payslip data as an array argument.
 
 An example would look like this:
@@ -99,7 +104,7 @@ class PaymentController extends Controller
             'payslip_document_number' => '1567',
             'payslip_description'     => 'Premium Hosting',
         );
-        return new Response($this->get('paggy.boleto_view')->render($data));
+        return new Response($this->get('paggy_boleto.view')->render($data));
     }
 }
 ```
