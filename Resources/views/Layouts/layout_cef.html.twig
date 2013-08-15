@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8" />
-        <title>{{ payslip.title ?: drawer.name }}</title>
+        <title>{{ payslip.title ?: (drawer.name ?: cedant.name) }}</title>
         <style type="text/css">
             @media print { .no-print { display: none !important; } }
             .no-border { border-width: 0px !important; }
@@ -41,7 +41,6 @@
 
             div.receipt .header { font-weight: bold; text-align: right; margin: 0px; }
             div.receipt img.logo { border: 0px; float: left; margin: 0px 1.5em 0px 0.5em; }
-            div.receipt p.cedant {}
          </style>
         <link rel="icon" type="image/x-icon" href="{{ asset(paths.favicon) }}" />
     </head>
@@ -67,11 +66,12 @@
 
             <div class="receipt">
                 <p class="header">Recibo do Sacado</p>
-                <img class="logo" src="{{ asset(paths.logo_drawer) }}" />
-                <p class="cedant">
-                    {{ drawer.name }}<br />
-                    {{ drawer.cpf_cnpj|formatCpfCnpj }}<br />
-                    {{ drawer.address_line1 }}<br />
+
+                {% if paths.logo_drawer %}<img class="logo" src="{{ asset(paths.logo_drawer) }}" />{% endif %}
+                <p>
+                    {% if drawer.name %}{{ drawer.name }}<br />{% endif %}
+                    {% if drawer.cpf_cnpj %}{{ drawer.cpf_cnpj ? drawer.cpf_cnpj|formatCpfCnpj }}<br />{% endif %}
+                    {% if drawer.address_line1 %}{{ drawer.address_line1 }}<br />{% endif %}
                     {{ drawer.address_line2 }}
                 </p>
 
