@@ -6,9 +6,6 @@ use Twig_Environment as Environment;
 
 class BoletoExtension extends \Twig_Extension
 {
-    protected $twig;
-    protected $assetFunction;
-
     protected $barcodes = array(
         0 => '00110',
         1 => '10001',
@@ -21,11 +18,15 @@ class BoletoExtension extends \Twig_Extension
         8 => '10010',
         9 => '01010'
     );
+
     protected $barcodeThin;
     protected $barcodeThick;
     protected $barcodeHeight;
     protected $barcodeBlack;
     protected $barcodeWhite;
+
+    protected $twig;
+    protected $assetFunction;
 
     public function __construct()
     {
@@ -42,19 +43,6 @@ class BoletoExtension extends \Twig_Extension
         }
     }
 
-    public function initRuntime(Environment $twig)
-    {
-        $this->twig = $twig;
-        $this->assetFunction = $this->twig->getFunction('asset')->getCallable();
-        $this->barcodeBlack = $this->asset('bundles/paggyboleto/images/black.png');
-        $this->barcodeWhite = $this->asset('bundles/paggyboleto/images/white.png');
-    }
-
-    protected function asset($asset)
-    {
-        return call_user_func($this->assetFunction, $asset);
-    }
-
     public function getFilters()
     {
         return array(
@@ -66,11 +54,15 @@ class BoletoExtension extends \Twig_Extension
         );
     }
 
+    public function initRuntime(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
+
     public function onlyNumbers($string)
     {
         return preg_replace('/[^0-9]/', '', $string);
     }
-    
 
     public function formatCpfCnpj($cpfCnpj)
     {
@@ -98,6 +90,8 @@ class BoletoExtension extends \Twig_Extension
         $this->barcodeHeight = intval($height);
         $this->barcodeThin   = intval($thinWidth);
         $this->barcodeThick  = intval($thickWidth);
+        $this->barcodeBlack  = $this->asset('bundles/paggyboleto/images/black.png');
+        $this->barcodeWhite  = $this->asset('bundles/paggyboleto/images/white.png');
 
         $html = '';
         $html .= $this->barHtml('black', 'thin');
@@ -136,6 +130,14 @@ class BoletoExtension extends \Twig_Extension
             ($width == 'thin' ? $this->barcodeThin : $this->barcodeThick),
             $this->barcodeHeight
         );
+    }
+
+    protected function asset($asset)
+    {
+        if (empty($this->assetFunction)) {
+            $this->assetFunction = $this->twig->getFunction('asset')->getCallable();
+        }
+        return call_user_func($this->assetFunction, $asset);
     }
 
     public function getName()
