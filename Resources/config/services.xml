@@ -1,0 +1,20 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="paggy_boleto.twig.class">Paggy\BoletoBundle\Twig\BoletoExtension</parameter>
+        <parameter key="paggy_boleto.view.class">Paggy\BoletoBundle\Library\BoletoView</parameter>
+    </parameters>
+
+    <services>
+        <service id="paggy_boleto.twig" class="%paggy_boleto.twig.class%">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="paggy_boleto.view" class="%paggy_boleto.view.class%">
+            <argument>%paggy_boleto.config%</argument>
+            <argument type="service" id="twig" />
+        </service>
+    </services>
+</container>
