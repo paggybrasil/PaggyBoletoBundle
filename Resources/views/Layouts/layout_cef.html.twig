@@ -12,6 +12,7 @@
             .height-81px { height: 81px !important; }
             .height-108px { height: 108px !important; }
             .height-139px { height: 139px !important; }
+            .right-align { text-align: right; }
 
             div.boleto { color: black; font-family: Arial; font-size: 10px; width: 665px; margin: 0px auto; }
             div.boleto hr { color: white; border-color: black; border-width: 1px; border-style: none none dashed; margin: 0px; }
@@ -41,6 +42,7 @@
 
             div.receipt .header { font-weight: bold; text-align: right; margin: 0px; }
             div.receipt img.logo { border: 0px; float: left; margin: 0px 1.5em 0px 0.5em; }
+            div.receipt p.drawer { display: inline-block; margin: 0px; }
          </style>
         <link rel="icon" type="image/x-icon" href="{{ asset(paths.favicon) }}" />
     </head>
@@ -68,7 +70,7 @@
                 <p class="header">Recibo do Sacado</p>
 
                 {% if paths.logo_drawer %}<img class="logo" src="{{ asset(paths.logo_drawer) }}" />{% endif %}
-                <p>
+                <p class="drawer">
                     {% if drawer.name %}{{ drawer.name }}<br />{% endif %}
                     {% if drawer.cpf_cnpj %}{{ drawer.cpf_cnpj ? drawer.cpf_cnpj|formatCpfCnpj }}<br />{% endif %}
                     {% if drawer.address_line1 %}{{ drawer.address_line1 }}<br />{% endif %}
@@ -119,29 +121,29 @@
                     </div>
                     <div class="cell" style="width: 191px">
                         <p class="label">Valor documento</p>
-                        <p class="value">{{ payslip.value }}</p>
+                        <p class="value right-align">{{ payslip.value }}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row">
                     <div class="cell" style="width: 136px">
                         <p class="label">(-) Desconto / Abatimentos</p>
-                        <p class="value">{# payslip.discount_value #}</p>
+                        <p class="value right-align">{# payslip.discount_value #}</p>
                     </div>
                     <div class="cell" style="width: 108px">
                         <p class="label">(-) Outras deduções</p>
-                        <p class="value">{# payslip.deductions_value #}</p>
+                        <p class="value right-align">{# payslip.deductions_value #}</p>
                     </div>
                     <div class="cell" style="width: 108px">
                         <p class="label">(+) Mora / Multa</p>
-                        <p class="value">{# payslip.forfeit_value #}</p>
+                        <p class="value right-align">{# payslip.forfeit_value #}</p>
                     </div>
                     <div class="cell" style="width: 114px">
                         <p class="label">(+) Outros acréscimos</p>
-                        <p class="value">{# payslip.affix_value #}</p>
+                        <p class="value right-align">{# payslip.affix_value #}</p>
                     </div>
                     <div class="cell" style="width: 191px">
                         <p class="label">(=) Valor cobrado</p>
-                        <p class="value">{# payslip.final_value #}</p>
+                        <p class="value right-align">{# payslip.final_value #}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row">
@@ -180,7 +182,7 @@
                     </div>
                     <div class="cell" style="width: 191px">
                         <p class="label">Vencimento</p>
-                        <p class="value">{{ payslip.due_date ?: 'Contra Apresentação' }}</p>
+                        <p class="value right-align">{{ payslip.due_date ?: 'Contra Apresentação' }}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row">
@@ -190,7 +192,7 @@
                     </div>
                     <div class="cell" style="width: 191px">
                         <p class="label">Agência/Código cedente</p>
-                        <p class="value">{{ cedant.account_code }}</p>
+                        <p class="value right-align">{{ cedant.account_code }}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row">
@@ -216,7 +218,7 @@
                     </div>
                     <div class="cell" style="width: 190px">
                         <p class="label">Nosso número</p>
-                        <p class="value">{{ payslip.our_number }}</p>
+                        <p class="value right-align">{{ payslip.our_number }}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row">
@@ -241,34 +243,34 @@
                     </div>
                     <div class="cell" style="width: 190px">
                         <p class="label">(=) Valor documento</p>
-                        <p class="value">{{ payslip.value }}</p>
+                        <p class="value right-align">{{ payslip.value }}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row height-139px">
                     <div class="cell height-139px" style="width: 469px">
                         <p class="label">Instruções (Texto de responsabilidade do cedente)</p>
-                        <p class="value"><br />{{ payslip.instructions|nl2br }}</p>
+                        <p class="value right-align"><br />{{ payslip.instructions|nl2br }}</p>
                     </div>
                     <div class="cell height-139px calculation" style="width: 191px">
                         <div class="cell">
                             <p class="label">(-) Desconto / Abatimentos</p>
-                            <p class="value">{# payslip.discount_value #}</p>
+                            <p class="value right-align">{# payslip.discount_value #}</p>
                         </div>
                         <div class="cell">
                             <p class="label">(-) Outras deduções</p>
-                            <p class="value">{# payslip.deductions_value #}</p>
+                            <p class="value right-align">{# payslip.deductions_value #}</p>
                         </div>
                         <div class="cell">
                             <p class="label">(+) Mora / Multa</p>
-                            <p class="value">{# payslip.forfeit_value #}</p>
+                            <p class="value right-align">{# payslip.forfeit_value #}</p>
                         </div>
                         <div class="cell">
                             <p class="label">(+) Outros acréscimos</p>
-                            <p class="value">{# payslip.affix_value #}</p>
+                            <p class="value right-align">{# payslip.affix_value #}</p>
                         </div>
                         <div class="cell">
                             <p class="label">(=) Valor cobrado</p>
-                            <p class="value">{# payslip.final_value #}</p>
+                            <p class="value right-align">{# payslip.final_value #}</p>
                         </div>
                     </div>
                 </div> <!-- end row-->
