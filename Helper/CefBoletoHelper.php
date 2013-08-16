@@ -55,10 +55,10 @@ class CefBoletoHelper extends BoletoHelper
     function getBankAccountCode($cedantData)
     {
         $accountCode = '';
-        if (!empty($data['branch'])) {
+        if (!empty($cedantData['branch'])) {
             $accountCode .= $cedantData['branch'] . ' / ';
         }
-        if (!empty($data['account'])) {
+        if (!empty($cedantData['account'])) {
             $accountCode .= $cedantData['account'] . '-' . $this->getChecksumModule11($cedantData['account'], 6);
         }
         return $accountCode;
