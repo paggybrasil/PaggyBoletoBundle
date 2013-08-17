@@ -72,7 +72,7 @@ provide the same information in your PHP code.
                 cnpj: 01.234.567/0001-89
                 bank: CEF
                 branch: 1234
-                account: 345678
+                code: 345678
         paths:
             default:
                 favicon: bundles/mysite/images/favicon.ico

@@ -81,7 +81,7 @@
 
                 <div class="first row">
                     <img src="{{ asset(paths.logo_cedant_bank) }}" />
-                    <span class="bank-code">{{ cedant.account_bank_code }}</span>
+                    <span class="bank-code">{{ cedant.bank_code }}</span>
                     <div class="typable-line">{{ payslip.typable_line }}</div>
                 </div>
                 <div class="row">
@@ -91,7 +91,7 @@
                     </div>
                     <div class="cell" style="width: 146px">
                         <p class="label">Agência/Código do Cedente</p>
-                        <p class="value">{{ cedant.account_code }}</p>
+                        <p class="value">{{ cedant.branch }} / {{ cedant.code }}</p>
                     </div>
                     <div class="cell" style="width: 51px">
                         <p class="label">Espécie</p>
@@ -172,7 +172,7 @@
 
                 <div class="first row">
                     <img src="{{ asset(paths.logo_cedant_bank) }}" />
-                    <span class="bank-code">{{ cedant.account_bank_code }}</span>
+                    <span class="bank-code">{{ cedant.bank_code }}</span>
                     <div class="typable-line">{{ payslip.typable_line }}</div>
                 </div>
                 <div class="row">
@@ -192,7 +192,7 @@
                     </div>
                     <div class="cell" style="width: 191px">
                         <p class="label">Agência/Código cedente</p>
-                        <p class="value right-align">{{ cedant.account_code }}</p>
+                        <p class="value right-align">{{ cedant.branch }} / {{ cedant.code }}</p>
                     </div>
                 </div> <!-- end row-->
                 <div class="row">

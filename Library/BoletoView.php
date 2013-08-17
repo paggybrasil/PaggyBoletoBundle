@@ -20,7 +20,7 @@ class BoletoView
     // The $viewFields are the fields required by the Twig templates, no more, no less
     // The configuration is mostly used to populate them, but there is no strict one-to-one relationship
     protected $viewFields = array(
-        'cedant'  => array('name', 'cpf_cnpj', 'account_bank_code', 'account_code'),
+        'cedant'  => array('name', 'cpf_cnpj', 'bank_code', 'branch', 'code'),
         'drawer'  => array('name', 'cpf_cnpj', 'address_line1', 'address_line2'),
         'payer'   => array('name', 'cpf_cnpj', 'address_line1', 'address_line2'),
         'payslip' => array(
@@ -95,12 +95,12 @@ class BoletoView
         }
 
         if ($subject == 'cedant') {
-            if (empty($param['account_bank_code'])) {
+            if (empty($param['bank_code'])) {
                 if (!empty($subjectData['bank'])) {
-                    $param['account_bank_code'] = BoletoHelper::getBankCode($subjectData['bank']);
+                    $param['bank_code'] = BoletoHelper::getBankCode($subjectData['bank']);
                 }
             }
-            $this->bank = BoletoHelper::getBankSlug($param['account_bank_code']);
+            $this->bank = BoletoHelper::getBankSlug($param['bank_code']);
         }
 
         if ($subject == 'paths') {

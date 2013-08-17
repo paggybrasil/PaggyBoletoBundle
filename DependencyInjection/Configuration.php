@@ -42,6 +42,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->scalarNode('branch')->end()
                             ->scalarNode('account')->end()
+                            ->scalarNode('code')->end()
                         ->end()
                     ->end()
                 ->end()

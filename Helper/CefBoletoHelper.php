@@ -9,9 +9,7 @@ class CefBoletoHelper extends BoletoHelper
         $param =& $parameters[$subject];
 
         if ($subject == 'cedant') {
-            if (empty($param['account_code'])) {
-                $param['account_code'] = $this->getBankAccountCode($subjectData);
-            }
+            $param['code'] = $this->getCedantCode($param['code'], $subjectData);
         }
 
         // continue only if we are dealing with "payslip"
@@ -52,16 +50,14 @@ class CefBoletoHelper extends BoletoHelper
         $param['typable_line'] = $this->getPayslipTypableLine($parameters['payslip'], $parameters['cedant']);
     }
 
-    function getBankAccountCode($cedantData)
+    function getCedantCode($code, $cedantData)
     {
-        $accountCode = '';
-        if (!empty($cedantData['branch'])) {
-            $accountCode .= $cedantData['branch'] . ' / ';
+        if (empty($code) && !empty($cedantData['account'])) {
+            $code = $cedantData['account'];
         }
-        if (!empty($cedantData['account'])) {
-            $accountCode .= $cedantData['account'] . '-' . $this->getChecksumModule11($cedantData['account'], 6);
-        }
-        return $accountCode;
+        $cedantCode  = substr(str_pad(preg_replace('/[^0-9]/', '', $code), 6, '0', STR_PAD_LEFT), 0, 6);
+        $cedantCode .= '-' . $this->getChecksumModule11($cedantCode, 6);
+        return $cedantCode;
     }
 
     function getPayslipPaymentLocation()
@@ -81,7 +77,7 @@ class CefBoletoHelper extends BoletoHelper
 
     function getPayslipFreeField($payslip, $cedant)
     {
-        $freeField = substr(str_pad(preg_replace('/[^0-9]/', '', $cedant['account_code']), 7, '0', STR_PAD_LEFT), -7);
+        $freeField = substr(str_pad(preg_replace('/[^0-9]/', '', $cedant['code']), 7, '0', STR_PAD_LEFT), -7);
         $freeField .= substr($payslip['our_number'], 2, 3);
         $freeField .= substr($payslip['our_number'], 0, 1);
         $freeField .= substr($payslip['our_number'], 5, 3);
